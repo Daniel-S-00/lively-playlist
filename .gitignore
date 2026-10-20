@@ -55,6 +55,7 @@ desktop.ini
 
 # Local agent/tool config (contains machine-specific absolute paths)
 .commandcode/
+AGENTS.md
 
 # Publish output
 *.publish.xml
