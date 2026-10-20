@@ -1,11 +1,17 @@
 # Lively Playlist
 
+[![Latest release](https://img.shields.io/github/v/release/Daniel-S-00/lively-playlist?label=download&color=007ACC&logo=github)](https://github.com/Daniel-S-00/lively-playlist/releases/latest)
+[![License: MIT](https://img.shields.io/badge/license-MIT-007ACC.svg)](LICENSE)
+
 A Windows tray app that adds **playlist** functionality to
 [Lively Wallpaper](https://github.com/lively-community/lively) — curated groups of
 wallpapers that rotate on a timer, per monitor.
 
 Lively itself has no playlist feature. This app fills that gap **externally**: it drives
 Lively over its own IPC API and does not modify or fork Lively.
+
+> **[Download the latest release →](https://github.com/Daniel-S-00/lively-playlist/releases/latest)**
+> Grab `LivelyPlaylist.exe` and double-click it — no install, no .NET runtime required.
 
 ## Features
 
