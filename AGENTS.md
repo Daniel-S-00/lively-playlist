@@ -157,12 +157,11 @@ Lively.exe core process
   own UI allows per-display wallpaper assignment). Requires a config-schema change
   (e.g. a per-monitor list) + UI section. Not yet designed — scope before building.
 - **`Monitors` / `PerMonitor`** exist in config but have no UI controls yet.
-- **Repo publish prep** — ✅ **done**: `.gitignore`, `README.md`, `LICENSE` (MIT),
-  `.editorconfig` all in place. Secrets/personal-path scan clean (no `C:\Users\...` or
-  credentials in tracked source; `.commandcode/` and `bin/`/`obj/` are gitignored).
-  **`git init`/commit NOT done yet — confirm with the user first.** Note: `LICENSE`
-  copyright line reads "Lively Playlist contributors" — user should swap in their
-  preferred holder name.
+- **Repo publish prep** — ✅ **done**. `.gitignore`, `README.md`, `LICENSE` (MIT,
+  "Copyright (c) 2026 Daniel S."), `.editorconfig` all in place. Secrets/personal-path
+  scan clean (no `C:\Users\...` or credentials in tracked source; `.commandcode/` and
+  `bin/`/`obj/` are gitignored). **Repo initialized, first commit on `master`.**
+  No remote configured and nothing pushed yet.
 - Playlist ordering: currently `Wallpapers` order is respected by `ResolvePool`, but
   the picker UI doesn't offer drag-to-reorder.
 
