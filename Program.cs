@@ -3,7 +3,7 @@ namespace LivelyPlaylist;
 internal static class Program
 {
     [STAThread]
-    private static void Main()
+    private static void Main(string[] args)
     {
         ApplicationConfiguration.Initialize();
 
@@ -17,6 +17,10 @@ internal static class Program
         using var engine = new PlaylistEngine(client, config, configPath);
         using var mainForm = new MainForm(client, engine, configPath);
         using var tray = new TrayApp(engine, configPath, mainForm);
+
+        // Optional: open the control window straight away (handy for a pinned shortcut).
+        if (args.Any(a => a.Equals("--panel", StringComparison.OrdinalIgnoreCase)))
+            mainForm.Show();
 
         using var exitCts = new CancellationTokenSource();
         Application.ApplicationExit += (_, _) =>

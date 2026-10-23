@@ -3,8 +3,8 @@ using System.Drawing;
 namespace LivelyPlaylist;
 
 /// <summary>
-/// Central dark-theme palette + WinForms styling helpers so every surface
-/// (control window, tray menu) shares one consistent look.
+/// Central dark-theme palette and type scale so every surface (control window,
+/// tray menu, custom controls) shares one consistent look.
 /// </summary>
 public static class DarkTheme
 {
@@ -12,6 +12,8 @@ public static class DarkTheme
     public static readonly Color Backdrop      = Color.FromArgb(18, 18, 18);
     public static readonly Color Surface       = Color.FromArgb(32, 32, 32);
     public static readonly Color SurfaceRaised = Color.FromArgb(45, 45, 45);
+    public static readonly Color SurfaceHover  = Color.FromArgb(40, 40, 40);
+    public static readonly Color SurfaceActive = Color.FromArgb(54, 54, 54);
     public static readonly Color Border        = Color.FromArgb(60, 60, 60);
 
     // Text
@@ -27,48 +29,25 @@ public static class DarkTheme
     public static readonly Color Danger        = Color.FromArgb(200, 60, 60);
     public static readonly Color DangerHover   = Color.FromArgb(220, 80, 80);
 
-    /// <summary>Style a regular clickable button as a dark secondary button.</summary>
-    public static void StyleButton(Button b)
-    {
-        b.FlatStyle = FlatStyle.Flat;
-        b.FlatAppearance.BorderSize = 1;
-        b.FlatAppearance.BorderColor = Border;
-        b.FlatAppearance.MouseOverBackColor = SurfaceRaised;
-        b.FlatAppearance.MouseDownBackColor = Border;
-        b.BackColor = SurfaceRaised;
-        b.ForeColor = TextPrimary;
-        b.Cursor = Cursors.Hand;
-        b.UseVisualStyleBackColor = false;
-        // No padding — any vertical padding makes small buttons clip their text
-        // (it "sinks" below the visible area). Center explicitly instead.
-        b.Padding = Padding.Empty;
-        b.TextAlign = ContentAlignment.MiddleCenter;
-        b.TextImageRelation = TextImageRelation.Overlay;
-    }
+    // Type scale. Created once and reused; they live for the process lifetime.
+    private static readonly string Family = PickFamily();
+    public static readonly Font TitleFont     = new(Family, 15f, FontStyle.Bold);
+    public static readonly Font H2Font        = new(Family, 11f, FontStyle.Bold);
+    public static readonly Font BodyFont      = new(Family, 9.5f, FontStyle.Regular);
+    public static readonly Font SmallFont     = new(Family, 8.25f, FontStyle.Regular);
+    public static readonly Font BoldSmallFont = new(Family, 8.25f, FontStyle.Bold);
 
-    /// <summary>Style a button with the accent (primary action) color.</summary>
-    public static void StyleAccentButton(Button b)
+    private static string PickFamily()
     {
-        StyleButton(b);
-        b.BackColor = Accent;
-        b.FlatAppearance.BorderColor = Accent;
-        b.FlatAppearance.MouseOverBackColor = AccentHover;
-        b.FlatAppearance.MouseDownBackColor = Accent;
-        b.ForeColor = OnAccent;
-    }
-
-    /// <summary>Style a destructive button (Exit).</summary>
-    public static void StyleDangerButton(Button b)
-    {
-        StyleButton(b);
-        b.ForeColor = Color.FromArgb(255, 150, 150);
-        b.FlatAppearance.MouseOverBackColor = Color.FromArgb(70, 35, 35);
-    }
-
-    /// <summary>Muted small caption label.</summary>
-    public static void StyleCaption(Label l)
-    {
-        l.ForeColor = TextMuted;
-        l.Font = new Font(l.Font.FontFamily, l.Font.Size, FontStyle.Regular);
+        try
+        {
+            var families = new System.Drawing.Text.InstalledFontCollection().Families;
+            if (families.Any(f => f.Name == "Segoe UI")) return "Segoe UI";
+        }
+        catch
+        {
+            // fall through to the WinForms default family
+        }
+        return SystemFonts.DefaultFont.FontFamily.Name;
     }
 }

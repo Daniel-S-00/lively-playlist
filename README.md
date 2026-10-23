@@ -25,8 +25,9 @@ Lively over its own IPC API and does not modify or fork Lively.
   watcher reloads `playlist.json` when you edit it by hand.
 - **Library auto-detect** — new wallpapers added to the Lively library are picked up
   without a restart.
-- **Thumbnail preview** — select a row to preview it; a countdown shows time to the next
-  change.
+- **Thumbnail grid** — pick wallpapers from a scrollable grid of cover tiles; click a tile
+  to preview it, click its badge (or double-click) to include it. The now-playing card
+  shows the current wallpaper, run state, countdown and a progress bar.
 - **Start with Windows** — optional (HKCU Run key, no admin) plus optional auto-start
   when Lively is detected. Launches minimized to tray either way.
 
@@ -47,7 +48,10 @@ Lively over its own IPC API and does not modify or fork Lively.
 `playlist.json` and `lively-playlist.log` are created next to the executable. Both are
 writable from the UI, and the log is openable from the tray menu.
 
-> If the picker shows "no wallpapers found", Lively isn't reachable or has no wallpapers
+Run with `--panel` to open the control window immediately instead of starting to the
+tray — handy for a pinned shortcut.
+
+> If the grid says no wallpapers were found, Lively isn't reachable or has nothing
 > imported. Check the log.
 
 ## Building from source
