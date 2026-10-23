@@ -10,6 +10,7 @@
     <AssemblyName>LivelyPlaylist</AssemblyName>
     <ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
     <ApplicationIcon>Assets\LivelyPlaylist.ico</ApplicationIcon>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
   </PropertyGroup>
 
   <ItemGroup>
