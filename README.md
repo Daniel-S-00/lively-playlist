@@ -103,8 +103,6 @@ Two behaviors worth knowing if you touch the code:
   (`%LocalAppData%\Lively Wallpaper\Library`).
 - `LivelyInfo.json`'s `Type` field is an **integer** (enum), not a string.
 
-See [AGENTS.md](./AGENTS.md) for full architecture notes and the gotchas list.
-
 ## Roadmap / known gaps
 
 - Independent playlist per monitor (designed, not built).
