@@ -31,9 +31,6 @@ public sealed class MainForm : Form
     // programmatic change we intentionally allow.
     private bool _allowCheckChange;
 
-    // Detects a second text click within the system double-click time (double-click toggles).
-    private int _lastTextClickIndex = -1;
-    private DateTime _lastTextClickTime = DateTime.MinValue;
     private readonly NumericUpDown _intervalInput = new();
     private readonly ComboBox _modeInput = new();
 
@@ -293,7 +290,7 @@ public sealed class MainForm : Form
         _picker.HorizontalScrollbar = true;
         _picker.SelectedIndexChanged += (_, _) => OnPickerSelected();
         _picker.ItemCheck += OnPickerItemCheck;
-        _picker.MouseClick += OnPickerMouseClick;
+        _picker.MouseDown += OnPickerMouseDown;
         Controls.Add(_picker);
 
         _selectAllButton.Text = "All";
@@ -700,7 +697,13 @@ public sealed class MainForm : Form
         return _picker.Font.Height + 6;
     }
 
-    private void OnPickerMouseClick(object? sender, MouseEventArgs e)
+    /// <summary>
+    /// Checkbox zone: the first press toggles. Text zone: the first press only selects
+    /// (preview comes from SelectedIndexChanged); the second press of a double-click toggles.
+    /// MouseDown is used instead of MouseClick because the first click on an unfocused row
+    /// is consumed by focus/selection and never raises MouseClick.
+    /// </summary>
+    private void OnPickerMouseDown(object? sender, MouseEventArgs e)
     {
         if (e.Button != MouseButtons.Left) return;
         var idx = _picker.IndexFromPoint(e.Location);
@@ -708,27 +711,14 @@ public sealed class MainForm : Form
 
         if (e.X <= GetCheckBoxZoneWidth())
         {
-            // Checkbox zone: single click toggles.
-            _lastTextClickIndex = -1;
-            SetChecked(idx, !_picker.GetItemChecked(idx));
+            // Ignore the second press of a double-click so it cannot toggle back.
+            if (e.Clicks == 1)
+                SetChecked(idx, !_picker.GetItemChecked(idx));
             return;
         }
 
-        // Text zone: first click only selects (preview already shown via SelectedIndexChanged).
-        // A second click within the system double-click time toggles.
-        var now = DateTime.UtcNow;
-        if (idx == _lastTextClickIndex &&
-            (now - _lastTextClickTime).TotalMilliseconds <= SystemInformation.DoubleClickTime)
-        {
+        if (e.Clicks >= 2)
             SetChecked(idx, !_picker.GetItemChecked(idx));
-            _lastTextClickIndex = -1;
-            _lastTextClickTime = DateTime.MinValue;
-        }
-        else
-        {
-            _lastTextClickIndex = idx;
-            _lastTextClickTime = now;
-        }
     }
 
     /// <summary>Toggle a row's check state, allowing the change through OnPickerItemCheck.</summary>
