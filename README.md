@@ -13,6 +13,10 @@ Lively over its own IPC API and does not modify or fork Lively.
 > **[Download the latest release →](https://github.com/Daniel-S-00/lively-playlist/releases/latest)**
 > Grab `LivelyPlaylist.exe` and double-click it — no install, no .NET runtime required.
 
+![Lively Playlist control window](Assets/screenshots/lively-playlist.png)
+
+*The control window: playlist selector, wallpaper thumbnail grid, interval/mode controls, and the now-playing card.*
+
 ## Features
 
 - **Playlists** — multiple named playlists; each has its own wallpaper selection,
